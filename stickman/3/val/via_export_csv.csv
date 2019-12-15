@@ -1,0 +1,9 @@
+filename,file_size,file_attributes,region_count,region_id,region_shape_attributes,region_attributes
+C-25.jpg,15578,"{}",1,0,"{""name"":""rect"",""x"":4,""y"":3,""width"":38,""height"":82}","{""action"":""stand""}"
+C-26.jpg,14986,"{}",1,0,"{""name"":""rect"",""x"":7,""y"":2,""width"":47,""height"":53}","{""action"":""squat""}"
+C-27.jpg,14912,"{}",1,0,"{""name"":""rect"",""x"":9,""y"":4,""width"":43,""height"":47}","{""action"":""bend""}"
+C-28.jpg,14852,"{}",1,0,"{""name"":""rect"",""x"":5,""y"":1,""width"":47,""height"":52}","{""action"":""squat""}"
+C-29.jpg,15129,"{}",1,0,"{""name"":""rect"",""x"":5,""y"":3,""width"":57,""height"":51}","{""action"":""bend""}"
+C-30.jpg,15577,"{}",1,0,"{""name"":""rect"",""x"":8,""y"":1,""width"":65,""height"":43}","{""action"":""bend""}"
+C-31.jpg,14735,"{}",1,0,"{""name"":""rect"",""x"":3,""y"":3,""width"":45,""height"":69}","{""action"":""stand""}"
+C-32.jpg,16354,"{}",1,0,"{""name"":""rect"",""x"":5,""y"":3,""width"":43,""height"":70}","{""action"":""stand""}"
