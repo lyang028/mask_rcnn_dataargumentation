@@ -50,8 +50,6 @@ def save_data(data, path):
     # 将DataFrame存储为csv,index表示是否显示行名，default=True
     dataframe.to_csv(path, index=False,header=False)
 
-
-
 config = InferenceConfig()
 config.display()
 TEST_MODE = "inference"
