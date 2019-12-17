@@ -35,7 +35,7 @@ def compute_batch_ap(image_ids):
         APs.append(AP)
     return APs
 def loop_weight(length):
-    weights_path = '../drive/My drive/silhouette_weight/logs/worker_silhouette/mask_rcnn_worker_'
+    weights_path = '../drive/My Drive/silhouette_weight/logs/worker_silhouette/mask_rcnn_worker_'
     weights_path = weights_path+ "%04d" % (length+1) +'.h5'
     print("Loading weights ", weights_path)
     model.load_weights(weights_path, by_name=True)
