@@ -35,7 +35,7 @@ def compute_batch_ap(image_ids):
         APs.append(AP)
     return APs
 def loop_weight(length):
-    weights_path = 'logs/worker_keep_train/mask_rcnn_worker_'
+    weights_path = '../drive/My drive/silhouette_weight/logs/worker_silhouette/mask_rcnn_worker_'
     weights_path = weights_path+ "%04d" % (length+1) +'.h5'
     print("Loading weights ", weights_path)
     model.load_weights(weights_path, by_name=True)
@@ -50,15 +50,17 @@ def save_data(data, path):
     # 将DataFrame存储为csv,index表示是否显示行名，default=True
     dataframe.to_csv(path, index=False,header=False)
 
+
+
 config = InferenceConfig()
 config.display()
 TEST_MODE = "inference"
-with tf.device("/gpu:0"):
-    model = modellib.MaskRCNN(mode="inference", model_dir=MODEL_DIR,
+# with tf.device("/gpu:0"):
+model = modellib.MaskRCNN(mode="inference", model_dir=MODEL_DIR,
                               config=config)
 # Load validation dataset
 dataset = worker.WorkerDataset()
-dataset.load_worker("WorkerData", "test")
+dataset.load_worker("player", "test")#Test for gitignore
 dataset.prepare()
 print("Images: {}\nClasses: {}".format(len(dataset.image_ids), dataset.class_names))
 
