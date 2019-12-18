@@ -88,7 +88,7 @@ class WorkerConfig(Config):
 
     # Skip detections with < 80% confidence
     DETECTION_MIN_CONFIDENCE = 0.8
-    DEFAULT_LOGS_DIR = 'logs'
+    DEFAULT_LOGS_DIR = '../drive/My Drive/silhouette_weight/logs'
     # TRAIN_ROIS_PER_IMAGE = 512
 
 ############################################################
