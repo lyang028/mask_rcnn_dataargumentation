@@ -344,7 +344,7 @@ def detect_and_color_splash(model, image_path=None, video_path=None):
 config = WorkerConfig()
 config.display()
     # Create model
-model = modellib.MaskRCNN(mode="training", config=config,model_dir=DEFAULT_LOGS_DIR)
+model = modellib.MaskRCNN(mode="training", config=config,model_dir=config.DEFAULT_LOGS_DIR)
     # Load weights
 
 weights_path = COCO_WEIGHTS_PATH
