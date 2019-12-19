@@ -344,7 +344,7 @@ def detect_and_color_splash(model, image_path=None, video_path=None):
 config = WorkerConfig()
 config.display()
     # Create model
-model = modellib.MaskRCNN(mode="training", config=config,model_dir=DEFAULT_LOGS_DIR)
+model = modellib.MaskRCNN(mode="training", config=config,model_dir=config.DEFAULT_LOGS_DIR)
     # Load weights
 
 weights_path = COCO_WEIGHTS_PATH
@@ -359,5 +359,10 @@ model.load_weights(weights_path, by_name=True, exclude=[
 # weights_path = 'logs/mask_rcnn_worker_0150.h5'
 # model.load_weights(weights_path, by_name=True)
 
-dataset = 'silhouette'
+# ******************************************* train sihouette
+# dataset = 'silhouette320'
+# train(model,dataset)
+
+# ******************************************* train stick
+dataset = 'stick320'
 train(model,dataset)

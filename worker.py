@@ -52,7 +52,7 @@ from mrcnn import model as modellib, utils
 COCO_WEIGHTS_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
 # Directory to save logs and model checkpoints, if not provided
 # through the command line argument --logs
-DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
+DEFAULT_LOGS_DIR = '../drive/My Drive/silhouette_weight/logs'
 
 ############################################################
 #  Configurations
@@ -88,7 +88,7 @@ class WorkerConfig(Config):
 
     # Skip detections with < 80% confidence
     DETECTION_MIN_CONFIDENCE = 0.8
-    DEFAULT_LOGS_DIR = 'logs'
+    DEFAULT_LOGS_DIR = '../drive/My Drive/silhouette_weight/logs'
     # TRAIN_ROIS_PER_IMAGE = 512
 
 ############################################################
