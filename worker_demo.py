@@ -34,8 +34,8 @@ def compute_batch_ap(image_ids):
         print(image_id, AP)
         APs.append(AP)
     return APs
-def loop_weight(length):
-    weights_path = '../drive/My Drive/silhouette_weight/worker20191218T0239/mask_rcnn_worker_'
+def loop_weight(length,path):
+    weights_path = path
     weights_path = weights_path+ "%04d" % (length+1) +'.h5'
     print("Loading weights ", weights_path)
     model.load_weights(weights_path, by_name=True)
@@ -64,8 +64,17 @@ dataset.load_worker("player", "test")#Test for gitignore
 dataset.prepare()
 print("Images: {}\nClasses: {}".format(len(dataset.image_ids), dataset.class_names))
 
+# *****************************************************silhouette
+# weight_amount = 150
+# output = np.zeros(weight_amount)
+# w_path = '../drive/My Drive/silhouette_weight/worker_silhouette/mask_rcnn_worker_'
+# for i in range(weight_amount):
+#     output[i] = loop_weight(i,w_path)
+# save_data(output,'../drive/My Drive/silhouette_weight/player_performance_silhouette.csv')
+# *****************************************************stick
 weight_amount = 150
 output = np.zeros(weight_amount)
+w_path = '../drive/My Drive/silhouette_weight/worker_stick/mask_rcnn_worker_'
 for i in range(weight_amount):
-    output[i] = loop_weight(i)
-save_data(output,'../drive/My Drive/silhouette_weight/player_performance.csv')
+    output[i] = loop_weight(i,w_path)
+save_data(output,'../drive/My Drive/silhouette_weight/player_performance_stick.csv')
