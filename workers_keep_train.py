@@ -359,5 +359,10 @@ model.load_weights(weights_path, by_name=True, exclude=[
 # weights_path = 'logs/mask_rcnn_worker_0150.h5'
 # model.load_weights(weights_path, by_name=True)
 
-dataset = 'silhouette'
+# ******************************************* train sihouette
+# dataset = 'silhouette320'
+# train(model,dataset)
+
+# ******************************************* train stick
+dataset = 'stick320'
 train(model,dataset)
