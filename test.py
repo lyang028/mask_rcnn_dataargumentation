@@ -116,9 +116,9 @@ def calculate_E_array(path):
 # H3 = calcEntropy2d(img3, 3, 3)
 # print(H1,H2,H3)
 
-# calculate_E_array('stick320/train/')
-# calculate_E_array('silhouette320/train/')
-# calculate_E_array('WorkerData/train/')
+calculate_E_array('stick320/train/')
+calculate_E_array('silhouette320/train/')
+calculate_E_array('WorkerData/train/')
 
 # dirss = os.listdir('silhouette320/train/')
 # dirss.sort(key= lambda x:int(x[2:]))
