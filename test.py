@@ -19,7 +19,7 @@ def calcEntropy(img):
         entropy.append(en)
 
     sum_en = np.sum(entropy)
-    return sum_en
+    return sum_en[0]
 
 # coding=utf-8
 import cv2
@@ -104,8 +104,9 @@ def calculate_E_array(path):
             img = cv2.imread(os.path.join(path,file), cv2.IMREAD_GRAYSCALE)
             E1 = calcEntropy(img)
             E2 = calcEntropy2d(img)
-            output.append([E1,E2])
+            output.append((E1,E2))
             print(file, 'complete')
+            
     dataReader.save_data(output,os.path.join(path,'Entropy.csv'))
 
 # img1 = cv2.imread("stick320/train/B-01.jpg", cv2.IMREAD_GRAYSCALE)
@@ -120,12 +121,10 @@ calculate_E_array('stick320/train/')
 calculate_E_array('silhouette320/train/')
 calculate_E_array('WorkerData/train/')
 
-# dirss = os.listdir('silhouette320/train/')
-# dirss.sort(key= lambda x:int(x[2:]))
-# for file in dirss:
-#     extend = os.path.splitext(file)[-1][1:]
-#     print(file,' ',extend)
-
+# x = [(1,1),(1,1),(1,1)]
+# dataReader.save_data(x,'stick320/train/Entropy.csv')
+# xx = dataReader.read_csv('stick320/train/Entropy.csv')
+# print(xx)
 
 
 
