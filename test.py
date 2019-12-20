@@ -92,9 +92,10 @@ def calcEntropy2d(img, win_w=3, win_h=3, threadNum=6):
     return H
 
 def calculate_E_array(path):
-    readable = ['jpg','png','bmp','gif']
+    readable = ['jpg','png','bmp','JPG','BMP','PNG']
     output = []
     files = os.listdir(path)
+    files.sort()
     for file in files:
         extend = os.path.splitext(file)[-1][1:]
         if extend not in readable:
@@ -115,8 +116,15 @@ def calculate_E_array(path):
 # H3 = calcEntropy2d(img3, 3, 3)
 # print(H1,H2,H3)
 
-calculate_E_array('stick320/train/')
+# calculate_E_array('stick320/train/')
+# calculate_E_array('silhouette320/train/')
+# calculate_E_array('WorkerData/train/')
 
+# dirss = os.listdir('silhouette320/train/')
+# dirss.sort(key= lambda x:int(x[2:]))
+# for file in dirss:
+#     extend = os.path.splitext(file)[-1][1:]
+#     print(file,' ',extend)
 
 
 
