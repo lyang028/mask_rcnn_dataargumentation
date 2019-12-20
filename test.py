@@ -106,7 +106,7 @@ def calculate_E_array(path):
             E2 = calcEntropy2d(img)
             output.append((E1,E2))
             print(file, 'complete')
-            
+
     dataReader.save_data(output,os.path.join(path,'Entropy.csv'))
 
 # img1 = cv2.imread("stick320/train/B-01.jpg", cv2.IMREAD_GRAYSCALE)

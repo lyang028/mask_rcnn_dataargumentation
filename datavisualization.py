@@ -126,11 +126,12 @@ def combine_bar(list, list_name, width_each = 0.1, xlabel = '', ylabel = '',titl
     plt.legend()  # 设置图例
     plt.show()
 
-
-a = dr.read_csv('logs/Experiments/compare_resnet_coco/result_a.csv')
-b = dr.read_csv('logs/Experiments/compare_resnet_coco/result_b.csv')
-c = dr.read_csv('logs/Experiments/compare_resnet_coco/result_c.csv')
-
-list = [np.array(a,dtype=np.float32),np.array(b,dtype=np.float32),np.array(c,dtype=np.float32)]
-list_name = ['ResNeta','ResNetb','ResNetc']
-combine_bar(list,list_name,width_each=1)
+#********************************************************resnet feature extractor
+# a = dr.read_csv('logs/Experiments/compare_resnet_coco/result_a.csv')
+# b = dr.read_csv('logs/Experiments/compare_resnet_coco/result_b.csv')
+# c = dr.read_csv('logs/Experiments/compare_resnet_coco/result_c.csv')
+#
+# list = [np.array(a,dtype=np.float32),np.array(b,dtype=np.float32),np.array(c,dtype=np.float32)]
+# list_name = ['ResNeta','ResNetb','ResNetc']
+# combine_bar(list,list_name,width_each=1)
+#********************************************************entropy
