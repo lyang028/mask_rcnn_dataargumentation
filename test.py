@@ -108,25 +108,37 @@ def calculate_E_array(path):
             print(file, 'complete')
 
     dataReader.save_data(output,os.path.join(path,'Entropy.csv'))
-
-# img1 = cv2.imread("stick320/train/B-01.jpg", cv2.IMREAD_GRAYSCALE)
-# img2 = cv2.imread("silhouette320/train/A-1.png.JPG", cv2.IMREAD_GRAYSCALE)
+# ***************************************************************entropy1d
+# img1 = cv2.imread("figures_test_entropy/samples/l1f-bend.png", cv2.IMREAD_GRAYSCALE)
+# img2 = cv2.imread("figures_test_entropy/samples/l1-bend.png", cv2.IMREAD_GRAYSCALE)
+# H1 = calcEntropy(img1)
+# H2 = calcEntropy(img2)
+# print(H1,H2)
+# ***************************************************************entropy2d
+img1 = cv2.imread("figures_test_entropy/samples/l1-bend.png", cv2.IMREAD_GRAYSCALE)
+img2 = cv2.imread("figures_test_entropy/samples/l2-bend.png", cv2.IMREAD_GRAYSCALE)
+img3 = cv2.imread("figures_test_entropy/samples/l1f-bend.png", cv2.IMREAD_GRAYSCALE)
+H1 = calcEntropy2d(img1)
+H2 = calcEntropy2d(img2)
+H11 = calcEntropy(img1)
+H21 = calcEntropy(img2)
+print('l1,l2 compare: ',H11,H1,H21,H2)
+H1 = calcEntropy2d(img1)
+H3 = calcEntropy2d(img3)
+H11 = calcEntropy(img1)
+H31 = calcEntropy(img3)
+print('l1,l2 compare: ',H11,H1,H31,H3)
 # img3 = cv2.imread("WorkerData/train/1.jpg", cv2.IMREAD_GRAYSCALE)
 # H1 = calcEntropy2d(img1, 3, 3)
 # H2 = calcEntropy2d(img2, 3, 3)
+
 # H3 = calcEntropy2d(img3, 3, 3)
-# print(H1,H2,H3)
 
-calculate_E_array('stick320/train/')
-calculate_E_array('silhouette320/train/')
-calculate_E_array('WorkerData/train/')
 
-# x = [(1,1),(1,1),(1,1)]
-# dataReader.save_data(x,'stick320/train/Entropy.csv')
-# xx = dataReader.read_csv('stick320/train/Entropy.csv')
-# print(xx)
+# calculate_E_array('stick320/train/')
+# calculate_E_array('silhouette320/train/')
+# calculate_E_array('WorkerData/train/')
+# calculate_E_array('silhouette_feature320/train/')
 
 
 
-# cv2.imshow("Image", img1)
-# cv2.waitKey(0)
