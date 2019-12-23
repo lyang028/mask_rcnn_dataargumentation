@@ -364,5 +364,5 @@ model.load_weights(weights_path, by_name=True, exclude=[
 # train(model,dataset)
 
 # ******************************************* train stick
-dataset = 'stick320'
+dataset = 'stick_feature320'
 train(model,dataset)
