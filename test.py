@@ -108,6 +108,30 @@ def calculate_E_array(path):
             print(file, 'complete')
 
     dataReader.save_data(output,os.path.join(path,'Entropy.csv'))
+
+def rename_image(path,csv_name):#make the file name sortable
+    list = dataReader.read_csv(os.path.join(path, csv_name))
+    new_path = os.path.join(path, 'new_image')
+    for i in range(len(list)-1):
+        file = list[i+1][0]
+        img = cv2.imread(os.path.join(path, file))
+        index = int(file.split('-')[1].split('.png')[0])
+        new_name = 'A-' + "%04d" % (index) + '.JPG'
+        cv2.imwrite(os.path.join(new_path, new_name), img)
+        list[i + 1][0] = new_name
+        list[i+1][1] = os.path.getsize(os.path.join(new_path, new_name))
+    dataReader.save_data(list,os.path.join(new_path, csv_name))
+#
+# def repair_label(path,csv_name):#change label 2 to 3 and 3 to 2
+#     list = dataReader.read_csv(os.path.join(path, csv_name))
+#     for i in range(len(list)-1):
+#         target = list[i + 1][6].split(':')[1]
+#         if(target == '"stand"}'):
+#             continue
+#         else if:
+#
+#     dataReader.save_data(list,os.path.join(new_path, csv_name))
+
 # ***************************************************************entropy1d
 # img1 = cv2.imread("figures_test_entropy/samples/l1f-bend.png", cv2.IMREAD_GRAYSCALE)
 # img2 = cv2.imread("figures_test_entropy/samples/l1-bend.png", cv2.IMREAD_GRAYSCALE)
@@ -115,30 +139,30 @@ def calculate_E_array(path):
 # H2 = calcEntropy(img2)
 # print(H1,H2)
 # ***************************************************************entropy2d
-img1 = cv2.imread("figures_test_entropy/samples/l1-bend.png", cv2.IMREAD_GRAYSCALE)
-img2 = cv2.imread("figures_test_entropy/samples/l2-bend.png", cv2.IMREAD_GRAYSCALE)
-img3 = cv2.imread("figures_test_entropy/samples/l1f-bend.png", cv2.IMREAD_GRAYSCALE)
-H1 = calcEntropy2d(img1)
-H2 = calcEntropy2d(img2)
-H11 = calcEntropy(img1)
-H21 = calcEntropy(img2)
-print('l1,l2 compare: ',H11,H1,H21,H2)
-H1 = calcEntropy2d(img1)
-H3 = calcEntropy2d(img3)
-H11 = calcEntropy(img1)
-H31 = calcEntropy(img3)
-print('l1,l2 compare: ',H11,H1,H31,H3)
-# img3 = cv2.imread("WorkerData/train/1.jpg", cv2.IMREAD_GRAYSCALE)
-# H1 = calcEntropy2d(img1, 3, 3)
-# H2 = calcEntropy2d(img2, 3, 3)
+# img1 = cv2.imread("figures_test_entropy/samples/l1-bend.png", cv2.IMREAD_GRAYSCALE)
+# img2 = cv2.imread("figures_test_entropy/samples/l2-bend.png", cv2.IMREAD_GRAYSCALE)
+# img3 = cv2.imread("figures_test_entropy/samples/l1f-bend.png", cv2.IMREAD_GRAYSCALE)
+# H1 = calcEntropy2d(img1)
+# H2 = calcEntropy2d(img2)
+# H11 = calcEntropy(img1)
+# H21 = calcEntropy(img2)
+# print('l1,l2 compare: ',H11,H1,H21,H2)
+# H1 = calcEntropy2d(img1)
+# H3 = calcEntropy2d(img3)
+# H11 = calcEntropy(img1)
+# H31 = calcEntropy(img3)
+# print('l1,l2 compare: ',H11,H1,H31,H3)
+#***************************************************************rename
+# list = dataReader.read_csv('silhouette_feature320/train/via_export_csv.csv')
+# print(list[1][0])
+# fpath = os.path.join('silhouette_feature320/train',list[1][0])
+# fsize = os.path.getsize(fpath)
+# print(list[1][0],list[1][1], fsize)
+# rename_image('silhouette_feature320/val','via_export_csv.csv')
+# rename_image('silhouette_feature320/train','via_export_csv.csv')
 
-# H3 = calcEntropy2d(img3, 3, 3)
+list = dataReader.read_csv('silhouette_feature320/train/via_export_csv.csv')
+str = list[1][6]
+output = str.split(':')[1]
 
-
-# calculate_E_array('stick320/train/')
-# calculate_E_array('silhouette320/train/')
-# calculate_E_array('WorkerData/train/')
-# calculate_E_array('silhouette_feature320/train/')
-
-
-
+print(output,(output == '"stand"}'))
