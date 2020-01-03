@@ -135,18 +135,24 @@ def combine_bar(list, list_name, width_each = 0.1, xlabel = '', ylabel = '',titl
 # list_name = ['ResNeta','ResNetb','ResNetc']
 # combine_bar(list,list_name,width_each=1)
 #********************************************************entropy
-a = dr.read_csv('silhouette320/train/Entropy.csv')
-b = dr.read_csv('stick320/train/Entropy.csv')
-c = dr.read_csv('WorkerData/train/Entropy.csv')
-d = dr.read_csv('silhouette_feature320/train/Entropy.csv')
-list = [np.array(a,dtype=np.float32),np.array(b,dtype=np.float32),np.array(c,dtype=np.float32),np.array(d,dtype=np.float32)]
-# print(type(a))
-print('silhouette: ',np.std(list[0][0]),np.mean(list[0][0]),np.std(list[0][1]),np.mean(list[0][1]))
-print('silhouette: ',np.std(list[1][0]),np.mean(list[1][0]),np.std(list[1][1]),np.mean(list[1][1]))
-print('silhouette: ',np.std(list[2][0]),np.mean(list[2][0]),np.std(list[2][1]),np.mean(list[2][1]))
-print('silhouette: ',np.std(list[3][0]),np.mean(list[3][0]),np.std(list[3][1]),np.mean(list[3][1]))
+# a = dr.read_csv('silhouette320/train/Entropy.csv')
+# b = dr.read_csv('stick320/train/Entropy.csv')
+# c = dr.read_csv('WorkerData/train/Entropy.csv')
+# d = dr.read_csv('silhouette_feature320/train/Entropy.csv')
+# list = [np.array(a,dtype=np.float32),np.array(b,dtype=np.float32),np.array(c,dtype=np.float32),np.array(d,dtype=np.float32)]
+# # print(type(a))
 # print('silhouette: ',np.std(list[0][0]),np.mean(list[0][0]),np.std(list[0][1]),np.mean(list[0][1]))
-# plt.scatter(list[0][0],list[0][1],s = 1,c = 'green')
-# plt.scatter(list[1][0],list[1][1],c = 'red')
-# plt.scatter(list[2][0],list[2][1],c = 'blue')
-plt.show()
+# print('silhouette: ',np.std(list[1][0]),np.mean(list[1][0]),np.std(list[1][1]),np.mean(list[1][1]))
+# print('silhouette: ',np.std(list[2][0]),np.mean(list[2][0]),np.std(list[2][1]),np.mean(list[2][1]))
+# print('silhouette: ',np.std(list[3][0]),np.mean(list[3][0]),np.std(list[3][1]),np.mean(list[3][1]))
+# # print('silhouette: ',np.std(list[0][0]),np.mean(list[0][0]),np.std(list[0][1]),np.mean(list[0][1]))
+# # plt.scatter(list[0][0],list[0][1],s = 1,c = 'green')
+# # plt.scatter(list[1][0],list[1][1],c = 'red')
+# # plt.scatter(list[2][0],list[2][1],c = 'blue')
+# plt.show()
+
+#******************************************************performance
+worker_silhouette = dr.read_csv('performance_record/worker_performance_silhouette.csv')
+worker_silhouette = dr.read_csv('performance_record/worker_performance_silhouette_new.csv')
+worker_silhouette = dr.read_csv('performance_record/worker_performance_silhouette_new2.csv')
+
