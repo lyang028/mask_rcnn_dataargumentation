@@ -1,84 +1,3 @@
-Skip
-to
-content
-Search or jump
-to…
-
-Pull
-requests
-Issues
-Marketplace
-Explore
-
-
-@lyang028
-
-
-Learn
-Git and GitHub
-without
-any
-code!
-Using
-the
-Hello
-World
-guide, you’ll
-start
-a
-branch, write
-comments, and open
-a
-pull
-request.
-
-1
-00l
-yang028 / mask_rcnn_dataargumentation
-Code
-Issues
-0
-Pull
-requests
-0
-Actions
-Projects
-0
-Wiki
-Security
-Insights
-Settings
-mask_rcnn_dataargumentation / detect_layer_inner_structure.py /
-
-
-@lyang028
-
-
-lyang028
-new
-update
-d47247f
-20
-minutes
-ago
-411
-lines(368
-sloc)  15.6
-KB
-
-Code
-navigation is available!
-Navigate
-your
-code
-with ease.Click on function and method calls to jump to their definitions or references in the same repository.Learn more
-
-You
-'re using code navigation to jump to definitions or references.
-Learn
-more or give
-us
-feedback
 import os
 import worker
 import mrcnn.model as mrcnn
@@ -475,30 +394,9 @@ def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path):
 # plt.savefig('logs/Experiments/compare_resnet_coco/image_r.png')
 # plt.close()
 
-# *******************************sequence compare imagenet coco
-Experiment_path = 'logs/Experiments/Sequence_head_compare_imagenet_coco/'
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/silhouette_feature')
-
-# *******************************sequence compare coco stickman
-Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_stick/'
-spe_lightweight_sequence_analysis(Experiment_path)
-
-# ********************************sequence compare coco stickman feature
-Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_stick_feature/'
-spe_lightweight_sequence_analysis(Experiment_path)
-
-# ********************************sequence compare coco sil
-Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_sil/'
-spe_lightweight_sequence_analysis(Experiment_path)
-
-# ********************************sequence compare coco sil feature
-Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_sil_feature/'
-spe_lightweight_sequence_analysis(Experiment_path)
-
-# ********************************sequence compare coco mix
-Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_mix/'
-spe_lightweight_sequence_analysis(Experiment_path)
-
-# ********************************sequence compare coco self
-Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_self/'
-spe_lightweight_sequence_analysis(Experiment_path)
+target_path = '../drive/My Drive/silhouette_weight/worker_real/mask_rcnn_worker_0150.h5'
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick',target_path,'stick_real')
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick_feature',target_path,'stick_feature_real')
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/silhouette',target_path,'silhouette_real')
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/sihouette_feature',target_path,'silhouette_feature_real')
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/worker_real',target_path,'real_real')
