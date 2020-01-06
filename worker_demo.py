@@ -77,4 +77,4 @@ output = np.zeros(weight_amount)
 w_path = '../drive/My Drive/silhouette_weight/worker_stick/mask_rcnn_worker_'
 for i in range(weight_amount):
     output[i] = loop_weight(i,w_path)
-save_data(output,'../drive/My Drive/silhouette_weight/player_performance_stick.csv')
+save_data(output,'../drive/My Drive/silhouette_weight/player_performance_silhouette_feature.csv')

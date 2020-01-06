@@ -153,6 +153,11 @@ def combine_bar(list, list_name, width_each = 0.1, xlabel = '', ylabel = '',titl
 
 #******************************************************performance
 worker_silhouette = dr.read_csv('performance_record/worker_performance_silhouette.csv')
-worker_silhouette = dr.read_csv('performance_record/worker_performance_silhouette_new.csv')
-worker_silhouette = dr.read_csv('performance_record/worker_performance_silhouette_new2.csv')
+worker_silhouette_feature = dr.read_csv('performance_record/worker_performance_silhouette_.csv')
+worker_stick = dr.read_csv('performance_record/worker_performance_stick.csv')
+worker_stick_feature = dr.read_csv('performance_record/worker_performance_stick_feature.csv')
 
+worker_silhouette = dr.read_csv('performance_record/worker_performance_silhouette.csv')
+worker_silhouette_feature = dr.read_csv('performance_record/worker_performance_silhouette_.csv')
+worker_stick = dr.read_csv('performance_record/worker_performance_stick.csv')
+worker_stick_feature = dr.read_csv('performance_record/worker_performance_stick_feature.csv')

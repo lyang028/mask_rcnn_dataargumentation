@@ -322,22 +322,20 @@ def sequence_analysis(set_path,path_target):
     print('Complete!')
     return wd
 
-def spe_lightweight_sequence_analysis(Experiment_path):
-    dataset_path = os.path.join(Experiment_path, 'Set')
-    weight_path = os.path.join(Experiment_path, 'coco.h5')
+def spe_lightweight_sequence_analysis(dataset_path, weight_path,output_path):
     list = np.array(sequence_analysis(dataset_path, weight_path))
     plt.plot(range(len(list[:, 0])), list[:, 0], label='rpn_wd')
     plt.plot(range(len(list[:, 1])), list[:, 1], label='conv_wd')
     plt.plot(range(len(list[:, 2])), list[:, 2], label='dense_wd')
     plt.plot(range(len(list[:, 3])), list[:, 3], label='norm_wd')
     plt.legend()
-    plt.savefig(os.path.join(Experiment_path, 'div_wd.png'))
+    plt.savefig(os.path.join(output_path, 'div_wd.png'))
     plt.close()
     sum = list.sum(axis=1)
     plt.plot(range(len(sum)), sum, label='summary_wd')
-    plt.savefig(os.path.join(Experiment_path, 'summary_wd.png'))
+    plt.savefig(os.path.join(output_path, 'summary_wd.png'))
     plt.close()
-    dr.save_data(list, os.path.join(Experiment_path, 'list.csv'))
+    dr.save_data(list, os.path.join(output_path, 'list.csv'))
 
 #...................................................................................
 
@@ -383,31 +381,31 @@ def spe_lightweight_sequence_analysis(Experiment_path):
 # plt.savefig('logs/Experiments/compare_resnet_coco/image_r.png')
 # plt.close()
 
-#*******************************sequence compare imagenet coco
-# Experiment_path = 'logs/Experiments/Sequence_head_compare_imagenet_coco/'
-# spe_lightweight_sequence_analysis(Experiment_path)
-#
-# #*******************************sequence compare coco stickman
-# Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_stick/'
-# spe_lightweight_sequence_analysis(Experiment_path)
-#
-# #********************************sequence compare coco stickman feature
-# Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_stick_feature/'
-# spe_lightweight_sequence_analysis(Experiment_path)
-#
-# #********************************sequence compare coco sil
-# Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_sil/'
-# spe_lightweight_sequence_analysis(Experiment_path)
-#
-# #********************************sequence compare coco sil feature
-# Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_sil_feature/'
-# spe_lightweight_sequence_analysis(Experiment_path)
-#
-# #********************************sequence compare coco mix
-# Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_mix/'
-# spe_lightweight_sequence_analysis(Experiment_path)
-#
-# #********************************sequence compare coco self
-# Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_self/'
-# spe_lightweight_sequence_analysis(Experiment_path)
+# *******************************sequence compare imagenet coco
+Experiment_path = 'logs/Experiments/Sequence_head_compare_imagenet_coco/'
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/silhouette_feature')
+
+#*******************************sequence compare coco stickman
+Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_stick/'
+spe_lightweight_sequence_analysis(Experiment_path)
+
+#********************************sequence compare coco stickman feature
+Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_stick_feature/'
+spe_lightweight_sequence_analysis(Experiment_path)
+
+#********************************sequence compare coco sil
+Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_sil/'
+spe_lightweight_sequence_analysis(Experiment_path)
+
+#********************************sequence compare coco sil feature
+Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_sil_feature/'
+spe_lightweight_sequence_analysis(Experiment_path)
+
+#********************************sequence compare coco mix
+Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_mix/'
+spe_lightweight_sequence_analysis(Experiment_path)
+
+#********************************sequence compare coco self
+Experiment_path = 'logs/Experiments/Sequence_head_compare_coco_self/'
+spe_lightweight_sequence_analysis(Experiment_path)
 
