@@ -334,20 +334,20 @@ def sequence_analysis(set_path, path_target):
     return wd
 
 
-def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path):
+def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path,mark):
     list = np.array(sequence_analysis(dataset_path, weight_path))
     plt.plot(range(len(list[:, 0])), list[:, 0], label='rpn_wd')
     plt.plot(range(len(list[:, 1])), list[:, 1], label='conv_wd')
     plt.plot(range(len(list[:, 2])), list[:, 2], label='dense_wd')
     plt.plot(range(len(list[:, 3])), list[:, 3], label='norm_wd')
     plt.legend()
-    plt.savefig(os.path.join(output_path, 'div_wd.png'))
+    plt.savefig(os.path.join(output_path, mark+'div_wd.png'))
     plt.close()
     sum = list.sum(axis=1)
-    plt.plot(range(len(sum)), sum, label='summary_wd')
-    plt.savefig(os.path.join(output_path, 'summary_wd.png'))
+    plt.plot(range(len(sum)), sum, label=mark+'summary_wd')
+    plt.savefig(os.path.join(output_path, mark+'summary_wd.png'))
     plt.close()
-    dr.save_data(list, os.path.join(output_path, 'list.csv'))
+    dr.save_data(list, os.path.join(output_path, mark+'list.csv'))
 
 
 # ...................................................................................
@@ -395,8 +395,9 @@ def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path):
 # plt.close()
 
 target_path = '../drive/My Drive/silhouette_weight/worker_real/mask_rcnn_worker_0150.h5'
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick',target_path,'stick_real')
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick_feature',target_path,'stick_feature_real')
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/silhouette',target_path,'silhouette_real')
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/sihouette_feature',target_path,'silhouette_feature_real')
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/worker_real',target_path,'real_real')
+output_path = '../drive/My Drive/silhouette_weight/'
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick',target_path,output_path,'stick_real')
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick_feature',target_path,output_path,'stick_feature_real')
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/silhouette',target_path,output_path,'silhouette_real')
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/sihouette_feature',target_path,output_path,'silhouette_feature_real')
+spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/worker_real',target_path,output_path,'real_real')
