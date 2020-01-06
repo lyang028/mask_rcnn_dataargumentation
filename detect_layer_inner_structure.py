@@ -319,6 +319,9 @@ def sequence_analysis(set_path, path_target):
     wd = []
     counter = 0
     for file_name in file_ls:
+        extend = os.path.splitext(file_name)[-1][1:]
+        if (extend !='h5'):
+            continue
         print(file_name)
         weights_path = os.path.join(set_path, file_name)
         model_source = load_weight(weights_path, worker.WorkerConfig())
@@ -368,7 +371,7 @@ def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path,mar
 # dr.save_data(list,'logs/Experiments/Sequence_head_compare_imagenet_coco/list.txt')
 
 # ******************************compare two resnet 50
-# m1 = load_weight('logs/Experiments/compare_resnet_coco/coco.h5',worker.WorkerConfig())
+# m1 = load_weight('U:/Desktop/ryantest/Mask_RCNN - Copy/logs/mask_rcnn_worker_0005.h5',worker.WorkerConfig())
 # m2 = load_weight('logs/Experiments/compare_resnet_coco/resnet.h5',worker.WorkerConfig())
 #
 # wd_array,wd_a,wd_b,wd_c,wd_r = calculate_wd_models_backboon(m1,m2)
@@ -393,9 +396,9 @@ def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path,mar
 # plt.bar(range(len(wd_r)),wd_r)
 # plt.savefig('logs/Experiments/compare_resnet_coco/image_r.png')
 # plt.close()
-
+# m1 = load_weight('U:/Desktop/ryantest/Mask_RCNN - Copy/logs/mask_rcnn_worker_0005.h5',worker.WorkerConfig())
 target_path = '../drive/My Drive/silhouette_weight/worker_real/mask_rcnn_worker_0150.h5'
-output_path = '../drive/My Drive/silhouette_weight/'
+output_path = '../drive/My Drive/silhouette_weight/wd'
 spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick',target_path,output_path,'stick_real')
 spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick_feature',target_path,output_path,'stick_feature_real')
 spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/silhouette',target_path,output_path,'silhouette_real')
