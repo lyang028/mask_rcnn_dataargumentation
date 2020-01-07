@@ -134,46 +134,46 @@ def rename_image(path,csv_name):#make the file name sortable
 
 # ***************************************************************entropy1d
 
-img1 = cv2.imread("figures_test_entropy/samples/l0-stand.png", cv2.IMREAD_GRAYSCALE)
-img2 = cv2.imread("figures_test_entropy/samples/l0-bend.png", cv2.IMREAD_GRAYSCALE)
-img3 = cv2.imread("figures_test_entropy/samples/l0-squat.png", cv2.IMREAD_GRAYSCALE)
-
-img11 = cv2.imread("figures_test_entropy/samples/l1-stand.png", cv2.IMREAD_GRAYSCALE)
-img21 = cv2.imread("figures_test_entropy/samples/l1-bend.png", cv2.IMREAD_GRAYSCALE)
-img31 = cv2.imread("figures_test_entropy/samples/l1-squat.png", cv2.IMREAD_GRAYSCALE)
-
-img11f = cv2.imread("figures_test_entropy/samples/l1f-stand.png", cv2.IMREAD_GRAYSCALE)
-img21f = cv2.imread("figures_test_entropy/samples/l1f-bend.png", cv2.IMREAD_GRAYSCALE)
-img31f = cv2.imread("figures_test_entropy/samples/l1f-squat.png", cv2.IMREAD_GRAYSCALE)
-
-img12 = cv2.imread("figures_test_entropy/samples/l2-stand.png", cv2.IMREAD_GRAYSCALE)
-img22 = cv2.imread("figures_test_entropy/samples/l2-bend.png", cv2.IMREAD_GRAYSCALE)
-img32 = cv2.imread("figures_test_entropy/samples/l2-squat.png", cv2.IMREAD_GRAYSCALE)
-
-img12f = cv2.imread("figures_test_entropy/samples/l2f-stand.png", cv2.IMREAD_GRAYSCALE)
-img22f = cv2.imread("figures_test_entropy/samples/l2f-bend.png", cv2.IMREAD_GRAYSCALE)
-img32f = cv2.imread("figures_test_entropy/samples/l2f-squat.png", cv2.IMREAD_GRAYSCALE)
-
-H1 = (calcEntropy(img1) + calcEntropy(img2) + calcEntropy(img3))/3
-H2 = (calcEntropy2d(img1) + calcEntropy2d(img2) + calcEntropy2d(img3))/3
-
-H11 = (calcEntropy(img11) + calcEntropy(img21) + calcEntropy(img31))/3
-H21 = (calcEntropy2d(img11) + calcEntropy2d(img21) + calcEntropy2d(img31))/3
-
-H11f = (calcEntropy(img11f) + calcEntropy(img21f) + calcEntropy(img31f))/3
-H21f = (calcEntropy2d(img11f) + calcEntropy2d(img21f) + calcEntropy2d(img31f))/3
-
-H12 = (calcEntropy(img12) + calcEntropy(img22) + calcEntropy(img32))/3
-H22 = (calcEntropy2d(img12) + calcEntropy2d(img22) + calcEntropy2d(img32))/3
-
-H12f = (calcEntropy(img12f) + calcEntropy(img22f) + calcEntropy(img32f))/3
-H22f = (calcEntropy2d(img12f) + calcEntropy2d(img22f) + calcEntropy2d(img32f))/3
-
-print("level-0(", H1,H2,')')
-print("level-1(", H11,H21,')')
-print("level-1f(", H11f,H21f,')')
-print("level-2(", H12,H22,')')
-print("level-2f(", H12f,H22f,')')
+# img1 = cv2.imread("figures_test_entropy/samples/l0-stand.png", cv2.IMREAD_GRAYSCALE)
+# img2 = cv2.imread("figures_test_entropy/samples/l0-bend.png", cv2.IMREAD_GRAYSCALE)
+# img3 = cv2.imread("figures_test_entropy/samples/l0-squat.png", cv2.IMREAD_GRAYSCALE)
+#
+# img11 = cv2.imread("figures_test_entropy/samples/l1-stand.png", cv2.IMREAD_GRAYSCALE)
+# img21 = cv2.imread("figures_test_entropy/samples/l1-bend.png", cv2.IMREAD_GRAYSCALE)
+# img31 = cv2.imread("figures_test_entropy/samples/l1-squat.png", cv2.IMREAD_GRAYSCALE)
+#
+# img11f = cv2.imread("figures_test_entropy/samples/l1f-stand.png", cv2.IMREAD_GRAYSCALE)
+# img21f = cv2.imread("figures_test_entropy/samples/l1f-bend.png", cv2.IMREAD_GRAYSCALE)
+# img31f = cv2.imread("figures_test_entropy/samples/l1f-squat.png", cv2.IMREAD_GRAYSCALE)
+#
+# img12 = cv2.imread("figures_test_entropy/samples/l2-stand.png", cv2.IMREAD_GRAYSCALE)
+# img22 = cv2.imread("figures_test_entropy/samples/l2-bend.png", cv2.IMREAD_GRAYSCALE)
+# img32 = cv2.imread("figures_test_entropy/samples/l2-squat.png", cv2.IMREAD_GRAYSCALE)
+#
+# img12f = cv2.imread("figures_test_entropy/samples/l2f-stand.png", cv2.IMREAD_GRAYSCALE)
+# img22f = cv2.imread("figures_test_entropy/samples/l2f-bend.png", cv2.IMREAD_GRAYSCALE)
+# img32f = cv2.imread("figures_test_entropy/samples/l2f-squat.png", cv2.IMREAD_GRAYSCALE)
+#
+# H1 = (calcEntropy(img1) + calcEntropy(img2) + calcEntropy(img3))/3
+# H2 = (calcEntropy2d(img1) + calcEntropy2d(img2) + calcEntropy2d(img3))/3
+#
+# H11 = (calcEntropy(img11) + calcEntropy(img21) + calcEntropy(img31))/3
+# H21 = (calcEntropy2d(img11) + calcEntropy2d(img21) + calcEntropy2d(img31))/3
+#
+# H11f = (calcEntropy(img11f) + calcEntropy(img21f) + calcEntropy(img31f))/3
+# H21f = (calcEntropy2d(img11f) + calcEntropy2d(img21f) + calcEntropy2d(img31f))/3
+#
+# H12 = (calcEntropy(img12) + calcEntropy(img22) + calcEntropy(img32))/3
+# H22 = (calcEntropy2d(img12) + calcEntropy2d(img22) + calcEntropy2d(img32))/3
+#
+# H12f = (calcEntropy(img12f) + calcEntropy(img22f) + calcEntropy(img32f))/3
+# H22f = (calcEntropy2d(img12f) + calcEntropy2d(img22f) + calcEntropy2d(img32f))/3
+#
+# print("level-0(", H1,H2,')')
+# print("level-1(", H11,H21,')')
+# print("level-1f(", H11f,H21f,')')
+# print("level-2(", H12,H22,')')
+# print("level-2f(", H12f,H22f,')')
 
 # ***************************************************************entropy2d
 # img1 = cv2.imread("figures_test_entropy/samples/l1-bend.png", cv2.IMREAD_GRAYSCALE)
@@ -190,18 +190,12 @@ print("level-2f(", H12f,H22f,')')
 # H31 = calcEntropy(img3)
 # print('l1,l2 compare: ',H11,H1,H31,H3)
 #***************************************************************rename
-# list = dataReader.read_csv('silhouette_feature320/train/via_export_csv.csv')
+# list = dataReader.read_csv('silhouette320_latest/train/via_export_csv.csv')
 # print(list[1][0])
-# fpath = os.path.join('silhouette_feature320/train',list[1][0])
+# fpath = os.path.join('silhouette320_latest/train',list[1][0])
 # fsize = os.path.getsize(fpath)
 # print(list[1][0],list[1][1], fsize)
-# rename_image('silhouette_feature320/val','via_export_csv.csv')
-# rename_image('silhouette_feature320/train','via_export_csv.csv')
+rename_image('silhouette320_latest/val','via_export_csv.csv')
+rename_image('silhouette320_latest/train','via_export_csv.csv')
 
-# list = dataReader.read_csv('silhouette_feature320/train/via_export_csv.csv')
-# str = list[1][6]
-# output = str.split(':')[1]
-#
-# print(output,(output == '"stand"}'))
 
-# print('a'+str(2*10))
