@@ -3,7 +3,8 @@ import numpy as np
 from collections import Counter
 from multiprocessing import Pool
 import os
-import dataReader
+import dataReader as dr
+import matplotlib.pyplot as plt
 def calcEntropy(img):
     entropy = []
 
@@ -107,10 +108,10 @@ def calculate_E_array(path):
             output.append((E1,E2))
             print(file, 'complete')
 
-    dataReader.save_data(output,os.path.join(path,'Entropy.csv'))
+    dr.save_data(output,os.path.join(path,'Entropy.csv'))
 
 def rename_image(path,csv_name):#make the file name sortable
-    list = dataReader.read_csv(os.path.join(path, csv_name))
+    list = dr.read_csv(os.path.join(path, csv_name))
     new_path = os.path.join(path, 'new_image')
     for i in range(len(list)-1):
         file = list[i+1][0]
@@ -120,8 +121,27 @@ def rename_image(path,csv_name):#make the file name sortable
         cv2.imwrite(os.path.join(new_path, new_name), img)
         list[i + 1][0] = new_name
         list[i+1][1] = os.path.getsize(os.path.join(new_path, new_name))
-    dataReader.save_data(list,os.path.join(new_path, csv_name))
-#
+    dr.save_data(list,os.path.join(new_path, csv_name))
+
+def modify_wd(path):
+    data = dr.read_csv(path)
+    array = np.array(data,dtype='float32')
+    classify = np.sum(array[:,1:],axis=1)
+    rpn = array[:,0]
+    extend = os.path.splitext(path)[1]
+    name = os.path.splitext(path)[0]
+    output = np.zeros([len(rpn),2])
+    output[:,0] = rpn
+    output[:,1] = classify
+    print(output,type(output))
+    output_path = name+'_modify'+extend
+    print(output_path)
+    dr.save_data(output,name+'_modify'+extend)
+    # plt.plot(range(len(classify)),classify, label='classifier')
+    # plt.plot(range(len(rpn)),rpn,label = 'rpn')
+    # plt.legend()
+    # plt.show()
+
 # def repair_label(path,csv_name):#change label 2 to 3 and 3 to 2
 #     list = dataReader.read_csv(os.path.join(path, csv_name))
 #     for i in range(len(list)-1):
@@ -195,7 +215,27 @@ def rename_image(path,csv_name):#make the file name sortable
 # fpath = os.path.join('silhouette320_latest/train',list[1][0])
 # fsize = os.path.getsize(fpath)
 # print(list[1][0],list[1][1], fsize)
-rename_image('silhouette320_latest/val','via_export_csv.csv')
-rename_image('silhouette320_latest/train','via_export_csv.csv')
+# rename_image('silhouette320_latest/val','via_export_csv.csv')
+# rename_image('silhouette320_latest/train','via_export_csv.csv')
 
 
+# modify_wd('performance_record/wd/real_reallist.csv')
+# modify_wd('performance_record/wd/silhouette_reallist.csv')
+# modify_wd('performance_record/wd/silhouette_feature_reallist.csv')
+# modify_wd('performance_record/wd/stick_reallist.csv')
+# modify_wd('performance_record/wd/stick_feature_reallist.csv')
+# modify_wd('performance_record/wd/coco_imagenet_compare.csv')
+
+
+img1 = cv2.imread("figures_test_entropy/test.png", cv2.IMREAD_GRAYSCALE)
+img2 = cv2.imread("figures_test_entropy/test2.png", cv2.IMREAD_GRAYSCALE)
+
+
+H1 = calcEntropy(img1)
+H2 = calcEntropy2d(img1)
+
+H11 = calcEntropy(img2)
+H21 = calcEntropy2d(img2)
+
+print(H1,H2)
+print(H11,H21)

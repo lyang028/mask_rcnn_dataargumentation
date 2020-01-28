@@ -106,16 +106,31 @@ def draw_curve_image(curves,pic_name,ratio = 1):
     # plt.savefig(pic_name)
     plt.show()
 
+def draw_plot(list,name_list, xlabel = '', ylabel = '',title = '',fz = (8,4)):
+    plt.figure(figsize=fz)
+    for i in range(len(list)):
+        plt.plot(range(len(list[i])),list[i],label = name_list[i])
+    plt.title(title)  # 标题
+    plt.xlabel(xlabel)  # x轴的标签
+    plt.ylabel(ylabel)  # y轴的标签
+    plt.legend()
+    plt.show()
+
+
 def combine_bar(list, list_name, width_each = 0.1, xlabel = '', ylabel = '',title = ''):
     plt.figure()  # 建立图形
-    for b in range(len(list)):
-        data = np.array(list[b]).reshape(len(list[b]))
-        name =  list_name[b]
-        x = range(len(data))
-        num_parts = len(list)
-        width_seg = width_each/num_parts
-        x = [i + b * width_each/num_parts - width_each/2 for i in x]
-        bar1 = plt.bar(x, data, width= width_seg, label=name)  # 第一个图
+    if(len(list_name)==0):
+        data = np.array(list[0]).reshape(len(list[0]))
+        bar1 = plt.bar(range(len(data)), data)  # 第一个图
+    else:
+        for b in range(len(list)):
+            data = np.array(list[b]).reshape(len(list[b]))
+            name = list_name[b]
+            x = range(len(data))
+            num_parts = len(list)
+            width_seg = width_each / num_parts
+            x = [i + b * width_each / num_parts - width_each / 2 for i in x]
+            bar1 = plt.bar(x, data, width=width_seg, label=name)  # 第一个图
 
     # plt.xticks(x, name)  # 设置x轴刻度显示值
     # plt.ylim(0, 10500)  # y轴的范围
@@ -133,7 +148,14 @@ def combine_bar(list, list_name, width_each = 0.1, xlabel = '', ylabel = '',titl
 #
 # list = [np.array(a,dtype=np.float32),np.array(b,dtype=np.float32),np.array(c,dtype=np.float32)]
 # list_name = ['ResNeta','ResNetb','ResNetc']
-# combine_bar(list,list_name,width_each=1)
+# combine_bar(list,list_name,width_each=1,'Layer Index', 'Wasserstein distance','ImageNet/COCO Decider part comparing')
+
+# b = dr.read_csv('performance_record/wd/ImageNet_coco_decider.csv')
+#
+#
+# list = [np.array(b,dtype=np.float32)]
+# list_name = []
+# combine_bar(list,list_name,width_each=1,xlabel='Layer Index', ylabel='Wasserstein distance',title='ImageNet/COCO feature extraction part comparing')
 #********************************************************entropy
 # a = dr.read_csv('silhouette320/train/Entropy.csv')
 # b = dr.read_csv('stick320/train/Entropy.csv')
@@ -151,13 +173,101 @@ def combine_bar(list, list_name, width_each = 0.1, xlabel = '', ylabel = '',titl
 # # plt.scatter(list[2][0],list[2][1],c = 'blue')
 # plt.show()
 
-#******************************************************performance
-worker_silhouette = dr.read_csv('performance_record/worker_performance_silhouette.csv')
-worker_silhouette_feature = dr.read_csv('performance_record/worker_performance_silhouette_.csv')
-worker_stick = dr.read_csv('performance_record/worker_performance_stick.csv')
-worker_stick_feature = dr.read_csv('performance_record/worker_performance_stick_feature.csv')
+#******************************************************performance decrease
+worker_silhouette = np.array(dr.read_csv('performance_record/worker_performance_silhouette_latest.csv'),'float32')
+worker_silhouette_feature = np.array(dr.read_csv('performance_record/worker_performance_silhouette_feature_latest.csv'),'float32')
+worker_stick = np.array(dr.read_csv('performance_record/worker_performance_stick.csv'),'float32')
+worker_stick_feature = np.array(dr.read_csv('performance_record/worker_performance_stick_feature.csv'),'float32')
+worker_real = np.array(dr.read_csv('performance_record/worker_performance_real.csv'),'float32')
 
-worker_silhouette = dr.read_csv('performance_record/worker_performance_silhouette.csv')
-worker_silhouette_feature = dr.read_csv('performance_record/worker_performance_silhouette_.csv')
-worker_stick = dr.read_csv('performance_record/worker_performance_stick.csv')
-worker_stick_feature = dr.read_csv('performance_record/worker_performance_stick_feature.csv')
+worker_list = []
+worker_list.append(worker_real)
+worker_list.append(worker_silhouette_feature)
+worker_list.append(worker_silhouette)
+worker_list.append(worker_stick_feature)
+worker_list.append(worker_stick)
+
+player_silhouette = np.array(dr.read_csv('performance_record/player_performance_silhouette.csv'),'float32')
+player_silhouette_feature = np.array(dr.read_csv('performance_record/player_performance_silhouette_feature.csv'),'float32')
+player_stick = np.array(dr.read_csv('performance_record/player_performance_stick.csv'),'float32')
+player_stick_feature = np.array(dr.read_csv('performance_record/player_performance_stick_feature.csv'),'float32')
+player_real = np.array(dr.read_csv('performance_record/player_performance_real.csv'),'float32')
+
+player_list = []
+player_list.append(player_real)
+player_list.append(player_silhouette_feature)
+player_list.append(player_silhouette)
+player_list.append(player_stick_feature)
+player_list.append(player_stick)
+
+list = []
+for i in range(len(worker_list)):
+    list.append(worker_list[i]-player_list[i])
+name_list = ['Level-0','Level-1f','Level-1','Level-2f','Level-2']
+print(np.sum(list,axis=1)/150)
+draw_plot(worker_list,name_list,'Epoch','mAP @ IoU = 50','Performance on Worker-Dataset')
+draw_plot(player_list,name_list,'Epoch','mAP @ IoU = 50','Performance on Player-Dataset')
+draw_plot(list,name_list,'Epoch','Difference','Performance Difference between Worker-Dataset and Player-Dataset')
+# *******************************************************wd
+# r_r = np.array(dr.read_csv('performance_record/wd/real_reallist_modify.csv'),'float32')
+# s_r = np.array(dr.read_csv('performance_record/wd/silhouette_reallist_modify.csv'),'float32')
+# sf_r = np.array(dr.read_csv('performance_record/wd/silhouette_feature_reallist_modify.csv'),'float32')
+# st_r = np.array(dr.read_csv('performance_record/wd/stick_reallist_modify.csv'),'float32')
+# stf_r = np.array(dr.read_csv('performance_record/wd/stick_feature_reallist_modify.csv'),'float32')
+# #
+# list = []
+# list.append(r_r[:,0])
+# list.append(sf_r[:,0])
+# list.append(s_r[:,0])
+# list.append(st_r[:,0])
+# list.append(stf_r[:,0])
+# list_c = []
+# list_c.append(r_r[:,1])
+# list_c.append(sf_r[:,1])
+# list_c.append(s_r[:,1])
+# list_c.append(st_r[:,1])
+# list_c.append(stf_r[:,1])
+# list_sum = []
+# list_sum.append(np.sum(r_r,axis=1))
+# list_sum.append(np.sum(sf_r,axis=1))
+# list_sum.append(np.sum(s_r,axis=1))
+# list_sum.append(np.sum(st_r,axis=1))
+# list_sum.append(np.sum(stf_r,axis=1))
+# name_list = ['Level-0','Level-1f','Level-1','Level-2','Level-2f']
+# draw_plot(list,name_list,'Epoch','Wasserstein distance','Wasserstein distance changing of RPN part')
+#
+# draw_plot(list_c,name_list,'Epoch','Wasserstein distance','Wasserstein distance changing of Classifier part')
+# draw_plot(list_sum,name_list,'Epoch','Wasserstein distance','Wasserstein distance changing')
+# r_r = np.array(dr.read_csv('performance_record/wd/real_reallist_modify.csv'),'float32')
+# coco_image_net = np.array(dr.read_csv('performance_record/wd/coco_imagenet_compare_modify.csv'),'float32')
+# list1 = []
+# list1.append(r_r[:,0])
+# list1.append(coco_image_net[:,0])
+# list2 = []
+# list2.append(r_r[:,1])
+# list2.append(coco_image_net[:,1])
+# name_list = ['COCO','ImageNet']
+# draw_plot(list1,name_list,'Epoch','Wasserstein distance','Wasserstein distance changing of RPN part')
+# draw_plot(list2,name_list,'Epoch','Wasserstein distance','Wasserstein distance changing of Classifier part')
+
+#******************************************************performance decrease
+# worker_real_all = np.array(dr.read_csv('performance_record/worker_performance_real_all.csv'),'float32')
+# worker_real = np.array(dr.read_csv('performance_record/worker_performance_real.csv'),'float32')
+#
+# worker_list = []
+# worker_list.append(worker_real)
+# worker_list.append(worker_real_all)
+#
+#
+# player_real_all = np.array(dr.read_csv('performance_record/player_performance_real_all.csv'),'float32')
+# player_real = np.array(dr.read_csv('performance_record/player_performance_real.csv'),'float32')
+#
+# player_list = []
+# player_list.append(player_real)
+# player_list.append(player_real_all)
+#
+# name_list = ['Block-wise training', 'All training']
+# # print(np.sum(list,axis=1))
+# draw_plot(worker_list,name_list,'Epoch','mAP @ IoU = 50','Performance on Worker-Dataset')
+# draw_plot(player_list,name_list,'Epoch','mAP @ IoU = 50','Performance on Player-Dataset')
+

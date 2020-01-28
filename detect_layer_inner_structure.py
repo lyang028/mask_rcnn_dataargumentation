@@ -397,10 +397,13 @@ def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path,mar
 # plt.savefig('logs/Experiments/compare_resnet_coco/image_r.png')
 # plt.close()
 # m1 = load_weight('U:/Desktop/ryantest/Mask_RCNN - Copy/logs/mask_rcnn_worker_0005.h5',worker.WorkerConfig())
-target_path = '../drive/My Drive/silhouette_weight/worker_real/mask_rcnn_worker_0150.h5'
-output_path = '../drive/My Drive/silhouette_weight/wd'
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick',target_path,output_path,'stick_real')
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick_feature',target_path,output_path,'stick_feature_real')
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/silhouette',target_path,output_path,'silhouette_real')
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/sihouette_feature',target_path,output_path,'silhouette_feature_real')
-spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/worker_real',target_path,output_path,'real_real')
+#***********************************************************************************wd calculate
+# target_path = '../drive/My Drive/silhouette_weight/worker_real/mask_rcnn_worker_0150.h5'
+# output_path = '../drive/My Drive/silhouette_weight/wd'
+# spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick',target_path,output_path,'stick_real')
+# spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/stick_feature',target_path,output_path,'stick_feature_real')
+# spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/silhouette',target_path,output_path,'silhouette_real')
+# spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/sihouette_feature',target_path,output_path,'silhouette_feature_real')
+# spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/worker_real',target_path,output_path,'real_real')
+# *********************************************************************************
+
