@@ -123,6 +123,52 @@ def rename_image(path,csv_name):#make the file name sortable
         list[i+1][1] = os.path.getsize(os.path.join(new_path, new_name))
     dr.save_data(list,os.path.join(new_path, csv_name))
 
+def rename_only(path,index_bias = 0):#make the file name sortable
+    readable = ['jpg', 'png', 'bmp', 'JPG', 'BMP', 'PNG']
+    listf = os.listdir(path)
+    listf = [file for file in listf if os.path.splitext(file)[-1][1:] in readable]
+    listf.sort(key = lambda x: int(x[:-4]))
+
+    new_path = os.path.join(path, 'new_image')
+    if not os.path.exists(new_path):
+        os.makedirs(new_path)
+    index = 0
+    for file in listf:
+        img = cv2.imread(os.path.join(path, file))
+        new_name = 'A-' + "%04d" % (index+index_bias) + '.JPG'
+        index = index+1
+        cv2.imwrite(os.path.join(new_path, new_name), img)
+def renew_csv(path,csv_path):#make the file name sortable
+    list = dr.read_csv(csv_path)
+    for i in range(len(list) - 1):
+        file = list[i + 1][0]
+        list[i + 1][1] = os.path.getsize(os.path.join(path, file))
+    dr.save_data(list, os.path.join(path,'annotation.csv'))
+
+def rename_based_csv(path, csv_path):
+    new_path = os.path.join(path, 'new_image')
+    if not os.path.exists(new_path):
+        os.makedirs(new_path)
+
+    list = dr.read_csv(csv_path)
+    readable = ['jpg', 'png', 'bmp', 'JPG', 'BMP', 'PNG']
+    listf = os.listdir(path)
+    listf = [file for file in listf if os.path.splitext(file)[-1][1:] in readable]
+    listf.sort(key=lambda x: int(x[:-4]))
+    print(listf)
+    csv_index = 1
+    for i in range(len(listf)):
+        img = cv2.imread(os.path.join(path, listf[i]))
+        new_name = list[csv_index][0]
+        print(listf[i], list[csv_index][0])
+        csv_index = csv_index+int(list[csv_index][3])
+        cv2.imwrite(os.path.join(new_path, new_name), img)
+
+    for i in range(len(list)-1):
+        file = list[i + 1][0]
+        list[i + 1][1] = os.path.getsize(os.path.join(new_path, file))
+    dr.save_data(list,os.path.join(new_path, 'annotation.csv'))
+
 def modify_wd(path):
     data = dr.read_csv(path)
     array = np.array(data,dtype='float32')
@@ -210,32 +256,23 @@ def modify_wd(path):
 # H31 = calcEntropy(img3)
 # print('l1,l2 compare: ',H11,H1,H31,H3)
 #***************************************************************rename
-# list = dataReader.read_csv('silhouette320_latest/train/via_export_csv.csv')
+# list = dr.read_csv('silhouette320_blur/train/via_export_csv.csv')
 # print(list[1][0])
-# fpath = os.path.join('silhouette320_latest/train',list[1][0])
+# fpath = os.path.join('silhouette320_blur/train',list[1][0])
 # fsize = os.path.getsize(fpath)
 # print(list[1][0],list[1][1], fsize)
-# rename_image('silhouette320_latest/val','via_export_csv.csv')
-# rename_image('silhouette320_latest/train','via_export_csv.csv')
 
+# rename_image('silhouette320_blur/val','via_export_csv.csv')
 
+# rename_only('silhouette320_blur/val',201)
+# renew_csv('silhouette320_blur/val/new_image','silhouette320_blur/val/via_export_csv.csv')
+
+# rename_only('silhouette320_blur/val',201)
+rename_based_csv('silhouette320_blur/train','silhouette320_blur/train/via_export_csv.csv')
+#
 # modify_wd('performance_record/wd/real_reallist.csv')
 # modify_wd('performance_record/wd/silhouette_reallist.csv')
 # modify_wd('performance_record/wd/silhouette_feature_reallist.csv')
 # modify_wd('performance_record/wd/stick_reallist.csv')
 # modify_wd('performance_record/wd/stick_feature_reallist.csv')
 # modify_wd('performance_record/wd/coco_imagenet_compare.csv')
-
-
-img1 = cv2.imread("figures_test_entropy/test.png", cv2.IMREAD_GRAYSCALE)
-img2 = cv2.imread("figures_test_entropy/test2.png", cv2.IMREAD_GRAYSCALE)
-
-
-H1 = calcEntropy(img1)
-H2 = calcEntropy2d(img1)
-
-H11 = calcEntropy(img2)
-H21 = calcEntropy2d(img2)
-
-print(H1,H2)
-print(H11,H21)
