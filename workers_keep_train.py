@@ -338,6 +338,13 @@ def detect_and_color_splash(model, image_path=None, video_path=None):
 
 
 ############################################################
+#command collect
+############################################################
+print('For this program, we provide following functions: \n',
+      'training from scratch, training from existed weight')
+str = input('Please enter your command:')
+
+############################################################
 #  Training
 ############################################################
     # Configurations
@@ -355,14 +362,11 @@ model.load_weights(weights_path, by_name=True, exclude=[
             "mrcnn_class_logits", "mrcnn_bbox_fc",
             "mrcnn_bbox", "mrcnn_mask"])
 
-#keep train
+if str == 'training from scratch':
+    dataset = input('Please enter your dataset: \n ')
+#*******************************************  keep train
 # weights_path = 'logs/mask_rcnn_worker_0150.h5'
 # model.load_weights(weights_path, by_name=True)
-
-# ******************************************* train sihouette
-# dataset = 'silhouette320'
-# train(model,dataset)
-
-# ******************************************* train stick
+# ******************************************* train from beginning
 dataset = 'stick_feature320'
 train(model,dataset)

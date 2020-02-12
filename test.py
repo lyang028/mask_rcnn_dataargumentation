@@ -268,7 +268,7 @@ def modify_wd(path):
 # renew_csv('silhouette320_blur/val/new_image','silhouette320_blur/val/via_export_csv.csv')
 
 # rename_only('silhouette320_blur/val',201)
-rename_based_csv('silhouette320_blur/train','silhouette320_blur/train/via_export_csv.csv')
+# rename_based_csv('silhouette320_blur/train','silhouette320_blur/train/via_export_csv.csv')
 #
 # modify_wd('performance_record/wd/real_reallist.csv')
 # modify_wd('performance_record/wd/silhouette_reallist.csv')
@@ -276,3 +276,9 @@ rename_based_csv('silhouette320_blur/train','silhouette320_blur/train/via_export
 # modify_wd('performance_record/wd/stick_reallist.csv')
 # modify_wd('performance_record/wd/stick_feature_reallist.csv')
 # modify_wd('performance_record/wd/coco_imagenet_compare.csv')
+
+a = [[[1,2],[2,3]],[[4,4,5,6]]]
+
+for i, j in enumerate(a):
+    print(j)
+    print(i)

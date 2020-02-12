@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sklearn.metrics as skm
 import dataReader as dr
+import sys
 
 def relabel_10_even(label):
     output = np.zeros([len(label)],dtype=int)
@@ -141,6 +142,32 @@ def combine_bar(list, list_name, width_each = 0.1, xlabel = '', ylabel = '',titl
     plt.legend()  # 设置图例
     plt.show()
 
+print('For this program, we provide following functions: \n',
+      'Performance comparing, Wasserstein distance decreasing comparing')
+str = input('Please enter your command:')
+
+if str == 'Performance comparing':
+    str = input('Please enter the amount of your input:')
+    num = int(str)
+    list = []
+    namelist = []
+    for i in range(num):
+        path = input('Please enter the address of one record : (for example ../performance_record/****.csv)')
+        list.append(np.array(dr.read_csv(path),'float32'))
+        namelist.append('No.'+ '%04d'%(i)+'record')
+    draw_plot(list,namelist,'Epoch','mAP @ IoU = 50','Performance on Worker-Dataset')
+elif str == 'Wasserstein distance decreasing comparing':
+    str = input('Please enter the amount of your input:')
+    num = int(str)
+    list = []
+    namelist = []
+    for i in range(num):
+        path = input('Please enter the address of one record : (for example ../performance_record/****.csv)')
+        list.append(np.array(dr.read_csv(path), 'float32'))
+        namelist.append('No.' + '%04d'%(i) + 'record')
+    draw_plot(list, namelist, 'Epoch', 'Wasserstein Distance')
+else:
+    print('Error Input')
 #********************************************************resnet feature extractor
 # a = dr.read_csv('logs/Experiments/compare_resnet_coco/result_a.csv')
 # b = dr.read_csv('logs/Experiments/compare_resnet_coco/result_b.csv')
@@ -174,40 +201,40 @@ def combine_bar(list, list_name, width_each = 0.1, xlabel = '', ylabel = '',titl
 # plt.show()
 
 #******************************************************performance decrease
-worker_silhouette = np.array(dr.read_csv('performance_record/worker_performance_silhouette_latest.csv'),'float32')
-worker_silhouette_feature = np.array(dr.read_csv('performance_record/worker_performance_silhouette_feature_latest.csv'),'float32')
-worker_stick = np.array(dr.read_csv('performance_record/worker_performance_stick.csv'),'float32')
-worker_stick_feature = np.array(dr.read_csv('performance_record/worker_performance_stick_feature.csv'),'float32')
-worker_real = np.array(dr.read_csv('performance_record/worker_performance_real.csv'),'float32')
-
-worker_list = []
-worker_list.append(worker_real)
-worker_list.append(worker_silhouette_feature)
-worker_list.append(worker_silhouette)
-worker_list.append(worker_stick_feature)
-worker_list.append(worker_stick)
-
-player_silhouette = np.array(dr.read_csv('performance_record/player_performance_silhouette.csv'),'float32')
-player_silhouette_feature = np.array(dr.read_csv('performance_record/player_performance_silhouette_feature.csv'),'float32')
-player_stick = np.array(dr.read_csv('performance_record/player_performance_stick.csv'),'float32')
-player_stick_feature = np.array(dr.read_csv('performance_record/player_performance_stick_feature.csv'),'float32')
-player_real = np.array(dr.read_csv('performance_record/player_performance_real.csv'),'float32')
-
-player_list = []
-player_list.append(player_real)
-player_list.append(player_silhouette_feature)
-player_list.append(player_silhouette)
-player_list.append(player_stick_feature)
-player_list.append(player_stick)
-
-list = []
-for i in range(len(worker_list)):
-    list.append(worker_list[i]-player_list[i])
-name_list = ['Level-0','Level-1f','Level-1','Level-2f','Level-2']
-print(np.sum(list,axis=1)/150)
-draw_plot(worker_list,name_list,'Epoch','mAP @ IoU = 50','Performance on Worker-Dataset')
-draw_plot(player_list,name_list,'Epoch','mAP @ IoU = 50','Performance on Player-Dataset')
-draw_plot(list,name_list,'Epoch','Difference','Performance Difference between Worker-Dataset and Player-Dataset')
+# worker_silhouette = np.array(dr.read_csv('performance_record/worker_performance_silhouette_latest.csv'),'float32')
+# worker_silhouette_feature = np.array(dr.read_csv('performance_record/worker_performance_silhouette_feature_latest.csv'),'float32')
+# worker_stick = np.array(dr.read_csv('performance_record/worker_performance_stick.csv'),'float32')
+# worker_stick_feature = np.array(dr.read_csv('performance_record/worker_performance_stick_feature.csv'),'float32')
+# worker_real = np.array(dr.read_csv('performance_record/worker_performance_real.csv'),'float32')
+#
+# worker_list = []
+# worker_list.append(worker_real)
+# worker_list.append(worker_silhouette_feature)
+# worker_list.append(worker_silhouette)
+# worker_list.append(worker_stick_feature)
+# worker_list.append(worker_stick)
+#
+# player_silhouette = np.array(dr.read_csv('performance_record/player_performance_silhouette.csv'),'float32')
+# player_silhouette_feature = np.array(dr.read_csv('performance_record/player_performance_silhouette_feature.csv'),'float32')
+# player_stick = np.array(dr.read_csv('performance_record/player_performance_stick.csv'),'float32')
+# player_stick_feature = np.array(dr.read_csv('performance_record/player_performance_stick_feature.csv'),'float32')
+# player_real = np.array(dr.read_csv('performance_record/player_performance_real.csv'),'float32')
+#
+# player_list = []
+# player_list.append(player_real)
+# player_list.append(player_silhouette_feature)
+# player_list.append(player_silhouette)
+# player_list.append(player_stick_feature)
+# player_list.append(player_stick)
+#
+# list = []
+# for i in range(len(worker_list)):
+#     list.append(worker_list[i]-player_list[i])
+# name_list = ['Level-0','Level-1f','Level-1','Level-2f','Level-2']
+# print(np.sum(list,axis=1)/150)
+# draw_plot(worker_list,name_list,'Epoch','mAP @ IoU = 50','Performance on Worker-Dataset')
+# draw_plot(player_list,name_list,'Epoch','mAP @ IoU = 50','Performance on Player-Dataset')
+# draw_plot(list,name_list,'Epoch','Difference','Performance Difference between Worker-Dataset and Player-Dataset')
 # *******************************************************wd
 # r_r = np.array(dr.read_csv('performance_record/wd/real_reallist_modify.csv'),'float32')
 # s_r = np.array(dr.read_csv('performance_record/wd/silhouette_reallist_modify.csv'),'float32')
