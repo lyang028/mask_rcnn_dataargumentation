@@ -364,9 +364,14 @@ model.load_weights(weights_path, by_name=True, exclude=[
 
 if str == 'training from scratch':
     dataset = input('Please enter your dataset: \n ')
+    train(model, dataset)
+elif str == 'training from existed weight':
+    weights_path = input('Please enter the path of weights: \n ')
+    model.load_weights(weights_path, by_name=True)
+    dataset = input('Please enter your dataset: \n ')
+    train(model, dataset)
+else:
+    print('Invalid input, exit.')
 #*******************************************  keep train
-# weights_path = 'logs/mask_rcnn_worker_0150.h5'
-# model.load_weights(weights_path, by_name=True)
+
 # ******************************************* train from beginning
-dataset = 'stick_feature320'
-train(model,dataset)
