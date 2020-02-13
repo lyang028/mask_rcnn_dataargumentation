@@ -6,6 +6,7 @@ import pandas as pd
 from mrcnn import utils
 import mrcnn.model as modellib
 import worker
+import datetime
 
 ROOT_DIR = os.path.abspath("../../")
 sys.path.append(ROOT_DIR)  # To find local version of the library
@@ -50,7 +51,19 @@ def save_data(data, path):
     # 将DataFrame存储为csv,index表示是否显示行名，default=True
     dataframe.to_csv(path, index=False,header=False)
 
+def detect_input(str):
+    str = input()
+    test = '/\\'
+    for i in str:
+        if i in test:
+            return str
+    else:
+        return  '../drive/My Drive/silhouette_weight/'+ str
 
+str = input('Please enter the dataset: \n'
+            'WorkerData, player')
+wpath = detect_input(input('Please enter the test weights set: \n'))
+opath = detect_input(input('Please enter the output path: \n'))
 
 config = InferenceConfig()
 config.display()
@@ -60,7 +73,7 @@ model = modellib.MaskRCNN(mode="inference", model_dir=MODEL_DIR,
                               config=config)
 # Load validation dataset
 dataset = worker.WorkerDataset()
-dataset.load_worker("player", "test")#Test for gitignore
+dataset.load_worker(str, "test")#Test for gitignore
 dataset.prepare()
 print("Images: {}\nClasses: {}".format(len(dataset.image_ids), dataset.class_names))
 
@@ -72,9 +85,17 @@ print("Images: {}\nClasses: {}".format(len(dataset.image_ids), dataset.class_nam
 #     output[i] = loop_weight(i,w_path)
 # save_data(output,'../drive/My Drive/silhouette_weight/player_performance_silhouette.csv')
 # *****************************************************stick
+ISOTIMEFORMAT = '%Y%m%d%H%M%S'
+theTime = datetime.datetime.now().strftime(ISOTIMEFORMAT)
+output_path = opath + theTime +'.csv'
+print('Output path: ' + output_path)
+
 weight_amount = 150
 output = np.zeros(weight_amount)
-w_path = '../drive/My Drive/silhouette_weight/worker_stick/mask_rcnn_worker_'
+save_data(output,output_path)
+
+w_path = wpath+'mask_rcnn_worker_'
 for i in range(weight_amount):
     output[i] = loop_weight(i,w_path)
-save_data(output,'../drive/My Drive/silhouette_weight/player_performance_silhouette_feature.csv')
+
+save_data(output,output_path)
