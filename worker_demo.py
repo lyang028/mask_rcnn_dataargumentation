@@ -52,7 +52,6 @@ def save_data(data, path):
     dataframe.to_csv(path, index=False,header=False)
 
 def detect_input(str):
-    str = input()
     test = '/\\'
     for i in str:
         if i in test:
@@ -62,8 +61,10 @@ def detect_input(str):
 
 str = input('Please enter the dataset: \n'
             'WorkerData, player')
-wpath = detect_input(input('Please enter the test weights set: \n'))
-opath = detect_input(input('Please enter the output path: \n'))
+wpath = input('Please enter the test weights set:')
+wpath = detect_input(wpath)
+opath = input('Please enter the output path:')
+opath = detect_input(opath)
 
 config = InferenceConfig()
 config.display()
@@ -92,9 +93,8 @@ print('Output path: ' + output_path)
 
 weight_amount = 150
 output = np.zeros(weight_amount)
-save_data(output,output_path)
 
-w_path = wpath+'mask_rcnn_worker_'
+w_path = wpath+'/mask_rcnn_worker_'
 for i in range(weight_amount):
     output[i] = loop_weight(i,w_path)
 
