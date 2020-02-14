@@ -276,11 +276,3 @@ def modify_wd(path):
 # modify_wd('performance_record/wd/stick_reallist.csv')
 # modify_wd('performance_record/wd/stick_feature_reallist.csv')
 # modify_wd('performance_record/wd/coco_imagenet_compare.csv')
-
-str = input()
-test = '/\\'
-for i in str:
-    if i in test:
-        print(i)
-    else:
-        print(str)
