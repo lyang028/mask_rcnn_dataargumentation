@@ -1,4 +1,6 @@
 # Mask R-CNN for Object Detection and Segmentation
 
-This is an implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870) on Python 3, Keras, and TensorFlow. The model generates bounding boxes and segmentation masks for each instance of an object in the image. It's based on Feature Pyramid Network (FPN) and a ResNet101 backbone.
+This is a modified version of Mask R-CNN for object detection and instance segmentation on Keras and TensorFlow (https://github.com/matterport/Mask_RCNN.git). It is modified to detect the worker pose in construction site. 
 
+We provide 3 levels, 5 kinds of data in this repository.
+level-0: the real data, collected from the real construction scence.
