@@ -9,10 +9,10 @@ Level-1 data is the silhouette generated manually based onthe real images whose 
 Level-2 data is the posture simulatedby the stick-man based on our common sense whose aver-age entropy is(0.48,0.96).
 2 sub-levels of data with the feature. Their average entropy are(0.95,2.12)and(0.76,1.38).
 
-![image](https://github.com/lyang028/mask_rcnn_dataargumentation/figure/level.bmp)
+![image](https://github.com/lyang028/mask_rcnn_dataargumentation/figures/level.bmp)
 
 Also, we provide two test dataset.
-![image](https://github.com/lyang028/mask_rcnn_dataargumentation/figure/test.bmp)
+![image](https://github.com/lyang028/mask_rcnn_dataargumentation/figures/test.bmp)
 
 You can use worker_keep_train.py to train the model with one of the dataset with the guidence of the console output and use prediction.py to test the performance.
 
