@@ -12,6 +12,7 @@ Level-2 data is the posture simulatedby the stick-man based on our common sense 
 ![image](https://github.com/lyang028/mask_rcnn_dataargumentation/raw/master/figures/level.bmp)
 
 Also, we provide two test dataset.
+
 ![image](https://github.com/lyang028/mask_rcnn_dataargumentation/raw/master/figures/test.bmp)
 
 You can use worker_keep_train.py to train the model with one of the dataset with the guidence of the console output and use prediction.py to test the performance.
