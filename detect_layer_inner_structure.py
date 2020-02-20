@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as ss
 import dataReader as dr
+import cfs_coco_train as coco
 from keras import backend as K
 
 ROOT_DIR = os.path.abspath("../../")
@@ -24,7 +25,7 @@ DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
 #
 # head structure
 train_conv_layers = ['fpn_c5p5', 'fpn_c4p4', 'fpn_c3p3', 'fpn_c2p2', 'fpn_p5', 'fpn_p2', 'fpn_p3', 'fpn_p4']
-train_dence_layers = ['mrcnn_mask_conv1', 'mrcnn_mask_conv2', 'mrcnn_mask_conv3', 'mrcnn_mask_conv4',
+train_dense_layers = ['mrcnn_mask_conv1', 'mrcnn_mask_conv2', 'mrcnn_mask_conv3', 'mrcnn_mask_conv4',
                       'mrcnn_bbox_fc', 'mrcnn_mask_deconv', 'mrcnn_class_logits', 'mrcnn_mask']
 train_normal_layers = ['mrcnn_mask_bn1', 'mrcnn_mask_bn2', 'mrcnn_mask_bn3', 'mrcnn_mask_bn4']
 
@@ -283,7 +284,7 @@ def calculate_wd_models_head(model1, model2):
     for name in train_conv_layers:
         wd_conv = wd_conv + calculate_wd_layers(model1, model2, name)
     wd_dense = 0
-    for name in train_dence_layers:
+    for name in train_dense_layers:
         wd_dense = wd_dense + calculate_wd_layers(model1, model2, name)
     wd_normal = 0
     for name in train_normal_layers:
@@ -313,7 +314,7 @@ def calculate_wd_models_backboon(model1, model2):
     return wd_conv_array, wd_a, wd_b, wd_c, wd_r
 
 
-def sequence_analysis(set_path, path_target):
+def sequence_analysis(set_path, path_target,*calculate_wd):
     file_ls = os.listdir(set_path)
     file_ls.sort()
     wd = []
@@ -326,7 +327,7 @@ def sequence_analysis(set_path, path_target):
         weights_path = os.path.join(set_path, file_name)
         model_source = load_weight(weights_path, worker.WorkerConfig())
         model_target = load_weight(path_target, worker.WorkerConfig())
-        wd.append(calculate_wd_models_head(model_source, model_target))
+        wd.append(calculate_wd(model_source, model_target))
         print('**************', len(wd), '**************')
         K.clear_session()
         # if counter>2:
@@ -338,7 +339,7 @@ def sequence_analysis(set_path, path_target):
 
 
 def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path,mark):
-    list = np.array(sequence_analysis(dataset_path, weight_path))
+    list = np.array(sequence_analysis(dataset_path, weight_path,calculate_wd_models_head))
     plt.plot(range(len(list[:, 0])), list[:, 0], label='rpn_wd')
     plt.plot(range(len(list[:, 1])), list[:, 1], label='conv_wd')
     plt.plot(range(len(list[:, 2])), list[:, 2], label='dense_wd')
@@ -352,12 +353,39 @@ def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path,mar
     plt.close()
     dr.save_data(list, os.path.join(output_path, mark+'list.csv'))
 
+def calculate_wd_models_all(model1, model2):
+    wd_rpn = calculate_wd_layers(model1, model2, train_rpn_model)
+    wd_conv = 0
+    wd_dense = 0
+    wd_normal = 0
+    for name in train_conv_layers:
+        wd_conv = wd_conv + calculate_wd_layers(model1, model2, name)
+    for name in train_dense_layers:
+        wd_dense = wd_dense + calculate_wd_layers(model1, model2, name)
+    for name in train_normal_layers:
+        wd_normal = wd_normal + calculate_wd_bnlayers(model1, model2, name)
+
+    wd_conv_array = 0
+    wd_a = 0
+    wd_b = 0
+    wd_c = 0
+    wd_r = 0
+    for name in train_resnet_conv:
+        wd_conv_array = wd_conv_array + calculate_wd_layers(model1, model2, name)
+
+    final_wd = wd_rpn + wd_conv + wd_dense + wd_normal + wd_conv_array + wd_a + wd_b + wd_c + wd_r
+
+    return final_wd
+
+
+# def compare_two_network(m1,m2):
+
 
 # ...................................................................................
 
 
 # ********************************** sequence compare imagenet coco
-# list = np.array(sequence_analysis('logs/Experiments/Sequence_head_compare_imagenet_coco/Set','logs/Experiments/Sequence_head_compare_imagenet_coco/coco.h5'))
+# list = np.array(sequence_analysis('logs/Experiments/Sequence_head_compare_imagenet_coco/Set','logs/Experiments/Sequence_head_compare_imagenet_coco/coco.h5',calculate_wd_models_head))
 # plt.plot(range(len(list[:,0])),list[:,0],label= 'rpn_wd')
 # plt.plot(range(len(list[:,1])),list[:,1],label = 'conv_wd')
 # plt.plot(range(len(list[:,2])),list[:,2],label = 'dense_wd')
@@ -405,5 +433,8 @@ def spe_lightweight_sequence_analysis(dataset_path, weight_path, output_path,mar
 # spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/silhouette',target_path,output_path,'silhouette_real')
 # spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/sihouette_feature',target_path,output_path,'silhouette_feature_real')
 # spe_lightweight_sequence_analysis('../drive/My Drive/silhouette_weight/worker_real',target_path,output_path,'real_real')
-# *********************************************************************************
+# *********************************************************************************model construction test
+
+
+
 
