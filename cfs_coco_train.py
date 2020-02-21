@@ -13,7 +13,7 @@ import skimage.io
 import skimage.draw
 import requests
 # import cv2
-# import imgaug
+import imgaug
 
 # Root directory of the project
 ROOT_DIR = os.path.abspath("./")
@@ -60,7 +60,7 @@ class CocoConfig(Config):
     # RPN_ANCHOR_SCALES = (8, 16, 32, 64, 128)
 
     # Skip detections with < 60% confidence
-    DETECTION_MIN_CONFIDENCE = 0.6
+    DETECTION_MIN_CONFIDENCE = 0.8
 
     # TRAIN_ROIS_PER_IMAGE = 512
 
@@ -285,12 +285,10 @@ def train(model, dataset):
     # Training - Stage 3
     # Fine tune all layers
     print("Fine tune all layers")
-    lr_factor = 20   # 10
-    eps = 300         # 160
     model.train(dataset_train, dataset_val,
-                learning_rate=config.LEARNING_RATE / lr_factor,
-                epochs=eps,
-                layers='all',
+                learning_rate=config.LEARNING_RATE,
+                epochs=150,
+                layers='heads',
                 augmentation=augmentation)
 
 
@@ -369,35 +367,40 @@ def detect_and_color_splash(model, image_path=None, video_path=None):
 ############################################################
 #  Training
 ############################################################
-if __name__ == '__main__':
-    import argparse
-    parser = argparse.ArgumentParser(description='Train Mask R-CNN on custom MS COCO.')
-    parser.add_argument('--model', required=True,
-                        metavar="/path/to/weights.h5",
-                        help="Path to weights .h5 file or 'imagenet'")
-    args = parser.parse_args()
 
-    weight = args.model
+# import argparse
+# parser = argparse.ArgumentParser(description='Train Mask R-CNN on custom MS COCO.')
+# parser.add_argument('--model', required=True,
+#                         metavar="/path/to/weights.h5",
+#                         help="Path to weights .h5 file or 'imagenet'")
+# args = parser.parse_args()
+#
+# weight = args.model
 
     # Configurations
-    config = CocoConfig()
-    config.display()
+config = CocoConfig()
+config.display()
 
-    # Create model
-    model = modellib.MaskRCNN(mode="training", config=config, model_dir=config.DEFAULT_LOGS_DIR)
+# Create model
+model = modellib.MaskRCNN(mode="training", config=config, model_dir=config.DEFAULT_LOGS_DIR)
 
-    # Load weights
-    if weight == "imagenet":
-        model_path = model.get_imagenet_weights()
-        print("Loading weights ", model_path)
-        model.load_weights(model_path, by_name=True, exclude=['mrcnn_class_logits', 'mrcnn_bbox_fc',
-                                                              'mrcnn_bbox', 'mrcnn_mask'])
-    elif weight != 'none':
-        print("Loading weights ", weight)
-        model.load_weights(weight, by_name=True)
+# Load weights
+# if weight == "imagenet":
+#         model_path = model.get_imagenet_weights()
+#         print("Loading weights ", model_path)
+#         model.load_weights(model_path, by_name=True, exclude=['mrcnn_class_logits', 'mrcnn_bbox_fc',
+#                                                               'mrcnn_bbox', 'mrcnn_mask'])
+# elif weight != 'none':
+#         print("Loading weights ", weight)
+#         model.load_weights(weight, by_name=True)
+weights_path = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
+        # Download weights file
+if not os.path.exists(weights_path):
+    utils.download_trained_weights(weights_path)
+model.load_weights(weights_path, by_name=True, exclude=[
+            "mrcnn_class_logits", "mrcnn_bbox_fc",
+            "mrcnn_bbox", "mrcnn_mask"])
 
-    # ******************************************* train coco
-    dataset = './coco'
-    train(model, dataset)
-
-print('Finish training.')
+# ******************************************* train coco
+dataset = input('select coco dataset:')
+train(model, dataset)
