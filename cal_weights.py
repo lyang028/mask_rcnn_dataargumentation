@@ -13,7 +13,7 @@ sys.path.append(ROOT_DIR)  # To find local version of the library
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 config = coco.CocoConfig()
 
-DATASET_DIR = './coco'
+
 
 
 class InferenceConfig(config.__class__):
@@ -62,6 +62,7 @@ TEST_MODE = "inference"
 model = modellib.MaskRCNN(mode="inference", model_dir=MODEL_DIR, config=config)
 # Load validation dataset
 dataset = coco.CocoDataset()
+DATASET_DIR = input('Input dataset')
 dataset.load_coco(DATASET_DIR, "val2017")
 dataset.prepare()
 print("Images: {}\nClasses: {}".format(len(dataset.image_ids), dataset.class_names))

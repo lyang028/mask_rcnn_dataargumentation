@@ -378,11 +378,12 @@ def detect_and_color_splash(model, image_path=None, video_path=None):
 # weight = args.model
 
     # Configurations
-config = CocoConfig()
-config.display()
+if __name__ == '__main__':
+    config = CocoConfig()
+    config.display()
 
 # Create model
-model = modellib.MaskRCNN(mode="training", config=config, model_dir=config.DEFAULT_LOGS_DIR)
+    model = modellib.MaskRCNN(mode="training", config=config, model_dir=config.DEFAULT_LOGS_DIR)
 
 # Load weights
 # if weight == "imagenet":
@@ -393,14 +394,14 @@ model = modellib.MaskRCNN(mode="training", config=config, model_dir=config.DEFAU
 # elif weight != 'none':
 #         print("Loading weights ", weight)
 #         model.load_weights(weight, by_name=True)
-weights_path = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
+    weights_path = os.path.join(ROOT_DIR, "mask_rcnn_coco.h5")
         # Download weights file
-if not os.path.exists(weights_path):
-    utils.download_trained_weights(weights_path)
-model.load_weights(weights_path, by_name=True, exclude=[
+    if not os.path.exists(weights_path):
+        utils.download_trained_weights(weights_path)
+    model.load_weights(weights_path, by_name=True, exclude=[
             "mrcnn_class_logits", "mrcnn_bbox_fc",
             "mrcnn_bbox", "mrcnn_mask"])
 
 # ******************************************* train coco
-dataset = input('select coco dataset:')
-train(model, dataset)
+    dataset = input('select coco dataset:')
+    train(model, dataset)
